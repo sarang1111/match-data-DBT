@@ -1,1 +1,1 @@
-# match-data-DBT
+This assignment focuses on SQL query optimization, relational schema design, and performance improvements. The document provides a structured approach to optimizing queries, indexing methods, relational algebra expressions, and overall observations on database scalability.
