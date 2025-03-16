@@ -1,0 +1,597 @@
+✅ Query: -- Enable EXPLAIN QUERY PLAN for SQLite
+.explain on
+
+-- Query that will use index scan (on primary key)
+
+SELECT * FROM MATCHES WHERE match_id = 1000
+Execution Time: 77.32 ms
+Output:
+matc  home_team_id   away  tour  loca  match_date     ho  away_score   
+----  -------------  ----  ----  ----  -------------  --  -------------
+1000  58             39    1     143   1925-06-28     0   1
+
+
+❌ Query: -- Query that will use table scan (no index on match_date)
+
+SELECT * FROM MATCHES WHERE match_date > '2010-01-01'
+Error: spawnSync C:\Windows\system32\cmd.exe ENOBUFS
+
+✅ Query: -- Query with condition on non-indexed column (will use table scan)
+
+SELECT * FROM TEAMS WHERE team_name LIKE 'Bra%'
+Execution Time: 21.59 ms
+Output:
+33|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+367|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+701|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+1035|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+1369|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+1703|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+
+
+✅ Query: -- Query with ordering (will likely use table scan)
+
+SELECT * FROM MATCHES ORDER BY match_date DESC LIMIT 100
+Execution Time: 23.65 ms
+Output:
+287880|1814|1785|1086|11408|2025-01-05|2|3|Completed
+239900|1480|1451|905|9201|2025-01-05|2|3|Completed
+191920|1146|1117|724|6994|2025-01-05|2|3|Completed
+143940|812|783|543|4787|2025-01-05|2|3|Completed
+95960|478|449|362|2580|2025-01-05|2|3|Completed
+47980|144|115|181|373|2025-01-05|2|3|Completed
+287879|1856|1855|963|11438|2025-01-04|1|2|Completed
+239899|1522|1521|782|9231|2025-01-04|1|2|Completed
+191919|1188|1187|601|7024|2025-01-04|1|2|Completed
+143939|854|853|420|4817|2025-01-04|1|2|Completed
+95959|520|519|239|2610|2025-01-04|1|2|Completed
+47979|186|185|58|403|2025-01-04|1|2|Completed
+287878|1785|1814|1086|13241|2025-01-02|2|1|Completed
+239898|1451|1480|905|11034|2025-01-02|2|1|Completed
+191918|1117|1146|724|8827|2025-01-02|2|1|Completed
+143938|783|812|543|6620|2025-01-02|2|1|Completed
+95958|449|478|362|4413|2025-01-02|2|1|Completed
+47978|115|144|181|2206|2025-01-02|2|1|Completed
+287877|1846|1855|963|11438|2024-12-31|0|1|Completed
+287876|1856|1851|963|13242|2024-12-31|2|1|Completed
+239897|1512|1521|782|9231|2024-12-31|0|1|Completed
+239896|1522|1517|782|11035|2024-12-31|2|1|Completed
+191917|1178|1187|601|7024|2024-12-31|0|1|Completed
+191916|1188|1183|601|8828|2024-12-31|2|1|Completed
+143937|844|853|420|4817|2024-12-31|0|1|Completed
+143936|854|849|420|6621|2024-12-31|2|1|Completed
+95957|510|519|239|2610|2024-12-31|0|1|Completed
+95956|520|515|239|4414|2024-12-31|2|1|Completed
+47977|176|185|58|403|2024-12-31|0|1|Completed
+47976|186|181|58|2207|2024-12-31|2|1|Completed
+287875|1814|1701|1086|11408|2024-12-30|3|1|Completed
+239895|1480|1367|905|9201|2024-12-30|3|1|Completed
+191915|1146|1033|724|6994|2024-12-30|3|1|Completed
+143935|812|699|543|4787|2024-12-30|3|1|Completed
+95955|478|365|362|2580|2024-12-30|3|1|Completed
+47975|144|31|181|373|2024-12-30|3|1|Completed
+287874|1785|1806|1086|13241|2024-12-29|3|1|Completed
+239894|1451|1472|905|11034|2024-12-29|3|1|Completed
+191914|1117|1138|724|8827|2024-12-29|3|1|Completed
+143934|783|804|543|6620|2024-12-29|3|1|Completed
+95954|449|470|362|4413|2024-12-29|3|1|Completed
+47974|115|136|181|2206|2024-12-29|3|1|Completed
+287873|1855|1854|963|13242|2024-12-28|1|2|Completed
+287872|1836|1851|963|11438|2024-12-28|1|3|Completed
+239893|1521|1520|782|11035|2024-12-28|1|2|Completed
+239892|1502|1517|782|9231|2024-12-28|1|3|Completed
+191913|1187|1186|601|8828|2024-12-28|1|2|Completed
+191912|1168|1183|601|7024|2024-12-28|1|3|Completed
+143933|853|852|420|6621|2024-12-28|1|2|Completed
+143932|834|849|420|4817|2024-12-28|1|3|Completed
+95953|519|518|239|4414|2024-12-28|1|2|Completed
+95952|500|515|239|2610|2024-12-28|1|3|Completed
+47973|185|184|58|2207|2024-12-28|1|2|Completed
+47972|166|181|58|403|2024-12-28|1|3|Completed
+287871|1868|1856|963|13242|2024-12-27|1|1|Completed
+287870|1846|1862|963|11438|2024-12-27|1|1|Completed
+287869|1701|1814|1086|11125|2024-12-27|2|1|Completed
+239891|1534|1522|782|11035|2024-12-27|1|1|Completed
+239890|1512|1528|782|9231|2024-12-27|1|1|Completed
+239889|1367|1480|905|8918|2024-12-27|2|1|Completed
+191911|1200|1188|601|8828|2024-12-27|1|1|Completed
+191910|1178|1194|601|7024|2024-12-27|1|1|Completed
+191909|1033|1146|724|6711|2024-12-27|2|1|Completed
+143931|866|854|420|6621|2024-12-27|1|1|Completed
+143930|844|860|420|4817|2024-12-27|1|1|Completed
+143929|699|812|543|4504|2024-12-27|2|1|Completed
+95951|532|520|239|4414|2024-12-27|1|1|Completed
+95950|510|526|239|2610|2024-12-27|1|1|Completed
+95949|365|478|362|2297|2024-12-27|2|1|Completed
+47971|198|186|58|2207|2024-12-27|1|1|Completed
+47970|176|192|58|403|2024-12-27|1|1|Completed
+47969|31|144|181|90|2024-12-27|2|1|Completed
+287868|1806|1785|1086|11394|2024-12-26|0|2|Completed
+239888|1472|1451|905|9187|2024-12-26|0|2|Completed
+191908|1138|1117|724|6980|2024-12-26|0|2|Completed
+143928|804|783|543|4773|2024-12-26|0|2|Completed
+95948|470|449|362|2566|2024-12-26|0|2|Completed
+47968|136|115|181|359|2024-12-26|0|2|Completed
+287867|1855|1836|963|11438|2024-12-25|2|0|Completed
+287866|1854|1851|963|13242|2024-12-25|2|3|Completed
+239887|1521|1502|782|9231|2024-12-25|2|0|Completed
+239886|1520|1517|782|11035|2024-12-25|2|3|Completed
+191907|1187|1168|601|7024|2024-12-25|2|0|Completed
+191906|1186|1183|601|8828|2024-12-25|2|3|Completed
+143927|853|834|420|4817|2024-12-25|2|0|Completed
+143926|852|849|420|6621|2024-12-25|2|3|Completed
+95947|519|500|239|2610|2024-12-25|2|0|Completed
+95946|518|515|239|4414|2024-12-25|2|3|Completed
+47967|185|166|58|403|2024-12-25|2|0|Completed
+47966|184|181|58|2207|2024-12-25|2|3|Completed
+287865|1846|1868|963|11438|2024-12-24|2|1|Completed
+287864|1856|1862|963|13242|2024-12-24|2|1|Completed
+239885|1512|1534|782|9231|2024-12-24|2|1|Completed
+239884|1522|1528|782|11035|2024-12-24|2|1|Completed
+191905|1178|1200|601|7024|2024-12-24|2|1|Completed
+191904|1188|1194|601|8828|2024-12-24|2|1|Completed
+143925|844|866|420|4817|2024-12-24|2|1|Completed
+143924|854|860|420|6621|2024-12-24|2|1|Completed
+95945|510|532|239|2610|2024-12-24|2|1|Completed
+95944|520|526|239|4414|2024-12-24|2|1|Completed
+
+
+✅ Query: -- 3-table join with SELECT * (will be slow without indexes)
+
+SELECT *
+FROM MATCHES m
+JOIN TEAMS ht ON m.home_team_id = ht.team_id
+JOIN TEAMS at ON m.away_team_id = at.team_id
+WHERE m.match_date > '2010-01-01'
+LIMIT 100
+Execution Time: 21.25 ms
+Output:
+33577|99|150|1|548|2010-01-02|1|0|Completed|99|Iran||||1941-08-23|PES2UG22CS508_SARANG|150|North Korea||||1956-10-07|PES2UG22CS508_SARANG
+33578|192|161|1|548|2010-01-02|0|0|Completed|192|Qatar||||1970-03-27|PES2UG22CS508_SARANG|161|Mali||||1960-04-14|PES2UG22CS508_SARANG
+33579|121|102|1|419|2010-01-02|6|0|Completed|121|Syria||||1949-11-20|PES2UG22CS508_SARANG|102|Zimbabwe||||1946-06-16|PES2UG22CS508_SARANG
+33580|184|243|1|1149|2010-01-02|0|1|Completed|184|Yemen||||1966-04-02|PES2UG22CS508_SARANG|243|Tajikistan||||1992-06-17|PES2UG22CS508_SARANG
+81557|433|484|182|2755|2010-01-02|1|0|Completed|433|Iran||||1941-08-23|PES2UG22CS508_SARANG|484|North Korea||||1956-10-07|PES2UG22CS508_SARANG
+81558|526|495|182|2755|2010-01-02|0|0|Completed|526|Qatar||||1970-03-27|PES2UG22CS508_SARANG|495|Mali||||1960-04-14|PES2UG22CS508_SARANG
+81559|455|436|182|2626|2010-01-02|6|0|Completed|455|Syria||||1949-11-20|PES2UG22CS508_SARANG|436|Zimbabwe||||1946-06-16|PES2UG22CS508_SARANG
+81560|518|577|182|3356|2010-01-02|0|1|Completed|518|Yemen||||1966-04-02|PES2UG22CS508_SARANG|577|Tajikistan||||1992-06-17|PES2UG22CS508_SARANG
+129537|767|818|363|4962|2010-01-02|1|0|Completed|767|Iran||||1941-08-23|PES2UG22CS508_SARANG|818|North Korea||||1956-10-07|PES2UG22CS508_SARANG
+129538|860|829|363|4962|2010-01-02|0|0|Completed|860|Qatar||||1970-03-27|PES2UG22CS508_SARANG|829|Mali||||1960-04-14|PES2UG22CS508_SARANG
+129539|789|770|363|4833|2010-01-02|6|0|Completed|789|Syria||||1949-11-20|PES2UG22CS508_SARANG|770|Zimbabwe||||1946-06-16|PES2UG22CS508_SARANG
+129540|852|911|363|5563|2010-01-02|0|1|Completed|852|Yemen||||1966-04-02|PES2UG22CS508_SARANG|911|Tajikistan||||1992-06-17|PES2UG22CS508_SARANG
+177517|1101|1152|544|7169|2010-01-02|1|0|Completed|1101|Iran||||1941-08-23|PES2UG22CS508_SARANG|1152|North Korea||||1956-10-07|PES2UG22CS508_SARANG
+177518|1194|1163|544|7169|2010-01-02|0|0|Completed|1194|Qatar||||1970-03-27|PES2UG22CS508_SARANG|1163|Mali||||1960-04-14|PES2UG22CS508_SARANG
+177519|1123|1104|544|7040|2010-01-02|6|0|Completed|1123|Syria||||1949-11-20|PES2UG22CS508_SARANG|1104|Zimbabwe||||1946-06-16|PES2UG22CS508_SARANG
+177520|1186|1245|544|7770|2010-01-02|0|1|Completed|1186|Yemen||||1966-04-02|PES2UG22CS508_SARANG|1245|Tajikistan||||1992-06-17|PES2UG22CS508_SARANG
+225497|1435|1486|725|9376|2010-01-02|1|0|Completed|1435|Iran||||1941-08-23|PES2UG22CS508_SARANG|1486|North Korea||||1956-10-07|PES2UG22CS508_SARANG
+225498|1528|1497|725|9376|2010-01-02|0|0|Completed|1528|Qatar||||1970-03-27|PES2UG22CS508_SARANG|1497|Mali||||1960-04-14|PES2UG22CS508_SARANG
+225499|1457|1438|725|9247|2010-01-02|6|0|Completed|1457|Syria||||1949-11-20|PES2UG22CS508_SARANG|1438|Zimbabwe||||1946-06-16|PES2UG22CS508_SARANG
+225500|1520|1579|725|9977|2010-01-02|0|1|Completed|1520|Yemen||||1966-04-02|PES2UG22CS508_SARANG|1579|Tajikistan||||1992-06-17|PES2UG22CS508_SARANG
+273477|1769|1820|906|11583|2010-01-02|1|0|Completed|1769|Iran||||1941-08-23|PES2UG22CS508_SARANG|1820|North Korea||||1956-10-07|PES2UG22CS508_SARANG
+273478|1862|1831|906|11583|2010-01-02|0|0|Completed|1862|Qatar||||1970-03-27|PES2UG22CS508_SARANG|1831|Mali||||1960-04-14|PES2UG22CS508_SARANG
+273479|1791|1772|906|11454|2010-01-02|6|0|Completed|1791|Syria||||1949-11-20|PES2UG22CS508_SARANG|1772|Zimbabwe||||1946-06-16|PES2UG22CS508_SARANG
+273480|1854|1913|906|12184|2010-01-02|0|1|Completed|1854|Yemen||||1966-04-02|PES2UG22CS508_SARANG|1913|Tajikistan||||1992-06-17|PES2UG22CS508_SARANG
+33581|207|134|1|1596|2010-01-03|1|1|Completed|207|Angola||||1976-02-08|PES2UG22CS508_SARANG|134|Gambia||||1953-02-09|PES2UG22CS508_SARANG
+81561|541|468|182|3803|2010-01-03|1|1|Completed|541|Angola||||1976-02-08|PES2UG22CS508_SARANG|468|Gambia||||1953-02-09|PES2UG22CS508_SARANG
+129541|875|802|363|6010|2010-01-03|1|1|Completed|875|Angola||||1976-02-08|PES2UG22CS508_SARANG|802|Gambia||||1953-02-09|PES2UG22CS508_SARANG
+177521|1209|1136|544|8217|2010-01-03|1|1|Completed|1209|Angola||||1976-02-08|PES2UG22CS508_SARANG|1136|Gambia||||1953-02-09|PES2UG22CS508_SARANG
+225501|1543|1470|725|10424|2010-01-03|1|1|Completed|1543|Angola||||1976-02-08|PES2UG22CS508_SARANG|1470|Gambia||||1953-02-09|PES2UG22CS508_SARANG
+273481|1877|1804|906|12631|2010-01-03|1|1|Completed|1877|Angola||||1976-02-08|PES2UG22CS508_SARANG|1804|Gambia||||1953-02-09|PES2UG22CS508_SARANG
+33582|63|161|1|813|2010-01-04|1|0|Completed|63|Egypt||||1924-05-27|PES2UG22CS508_SARANG|161|Mali||||1960-04-14|PES2UG22CS508_SARANG
+33583|101|164|1|421|2010-01-04|0|1|Completed|101|Tanzania||||1945-03-28|PES2UG22CS508_SARANG|164|Ivory Coast||||1960-04-14|PES2UG22CS508_SARANG
+81562|397|495|182|3020|2010-01-04|1|0|Completed|397|Egypt||||1924-05-27|PES2UG22CS508_SARANG|495|Mali||||1960-04-14|PES2UG22CS508_SARANG
+81563|435|498|182|2628|2010-01-04|0|1|Completed|435|Tanzania||||1945-03-28|PES2UG22CS508_SARANG|498|Ivory Coast||||1960-04-14|PES2UG22CS508_SARANG
+129542|731|829|363|5227|2010-01-04|1|0|Completed|731|Egypt||||1924-05-27|PES2UG22CS508_SARANG|829|Mali||||1960-04-14|PES2UG22CS508_SARANG
+129543|769|832|363|4835|2010-01-04|0|1|Completed|769|Tanzania||||1945-03-28|PES2UG22CS508_SARANG|832|Ivory Coast||||1960-04-14|PES2UG22CS508_SARANG
+177522|1065|1163|544|7434|2010-01-04|1|0|Completed|1065|Egypt||||1924-05-27|PES2UG22CS508_SARANG|1163|Mali||||1960-04-14|PES2UG22CS508_SARANG
+177523|1103|1166|544|7042|2010-01-04|0|1|Completed|1103|Tanzania||||1945-03-28|PES2UG22CS508_SARANG|1166|Ivory Coast||||1960-04-14|PES2UG22CS508_SARANG
+225502|1399|1497|725|9641|2010-01-04|1|0|Completed|1399|Egypt||||1924-05-27|PES2UG22CS508_SARANG|1497|Mali||||1960-04-14|PES2UG22CS508_SARANG
+225503|1437|1500|725|9249|2010-01-04|0|1|Completed|1437|Tanzania||||1945-03-28|PES2UG22CS508_SARANG|1500|Ivory Coast||||1960-04-14|PES2UG22CS508_SARANG
+273482|1733|1831|906|11848|2010-01-04|1|0|Completed|1733|Egypt||||1924-05-27|PES2UG22CS508_SARANG|1831|Mali||||1960-04-14|PES2UG22CS508_SARANG
+273483|1771|1834|906|11456|2010-01-04|0|1|Completed|1771|Tanzania||||1945-03-28|PES2UG22CS508_SARANG|1834|Ivory Coast||||1960-04-14|PES2UG22CS508_SARANG
+33584|124|155|1|985|2010-01-05|0|0|Completed|124|Ghana||||1950-05-28|PES2UG22CS508_SARANG|155|Malawi||||1957-08-28|PES2UG22CS508_SARANG
+81564|458|489|182|3192|2010-01-05|0|0|Completed|458|Ghana||||1950-05-28|PES2UG22CS508_SARANG|489|Malawi||||1957-08-28|PES2UG22CS508_SARANG
+129544|792|823|363|5399|2010-01-05|0|0|Completed|792|Ghana||||1950-05-28|PES2UG22CS508_SARANG|823|Malawi||||1957-08-28|PES2UG22CS508_SARANG
+177524|1126|1157|544|7606|2010-01-05|0|0|Completed|1126|Ghana||||1950-05-28|PES2UG22CS508_SARANG|1157|Malawi||||1957-08-28|PES2UG22CS508_SARANG
+225504|1460|1491|725|9813|2010-01-05|0|0|Completed|1460|Ghana||||1950-05-28|PES2UG22CS508_SARANG|1491|Malawi||||1957-08-28|PES2UG22CS508_SARANG
+273484|1794|1825|906|12020|2010-01-05|0|0|Completed|1794|Ghana||||1950-05-28|PES2UG22CS508_SARANG|1825|Malawi||||1957-08-28|PES2UG22CS508_SARANG
+33585|185|135|33|808|2010-01-06|4|0|Completed|185|Bahrain||||1966-04-02|PES2UG22CS508_SARANG|135|Hong Kong||||1953-04-05|PES2UG22CS508_SARANG
+33586|158|154|1|646|2010-01-06|1|0|Completed|158|Benin||||1959-11-08|PES2UG22CS508_SARANG|154|Libya||||1957-06-02|PES2UG22CS508_SARANG
+33587|32|121|33|877|2010-01-06|0|0|Completed|32|China PR||||1913-02-04|PES2UG22CS508_SARANG|121|Syria||||1949-11-20|PES2UG22CS508_SARANG
+33588|162|205|1|1095|2010-01-06|2|0|Completed|162|Gabon||||1960-04-14|PES2UG22CS508_SARANG|205|Mozambique||||1975-06-25|PES2UG22CS508_SARANG
+33589|83|186|33|346|2010-01-06|1|2|Completed|83|Indonesia||||1934-05-13|PES2UG22CS508_SARANG|186|Oman||||1966-04-03|PES2UG22CS508_SARANG
+33590|176|51|33|403|2010-01-06|2|2|Completed|176|Kuwait||||1963-01-06|PES2UG22CS508_SARANG|51|Australia||||1922-06-17|PES2UG22CS508_SARANG
+33591|96|115|33|1260|2010-01-06|1|1|Completed|96|Lebanon||||1940-04-27|PES2UG22CS508_SARANG|115|Vietnam||||1949-01-16|PES2UG22CS508_SARANG
+33592|136|99|33|359|2010-01-06|1|3|Completed|136|Singapore||||1953-04-11|PES2UG22CS508_SARANG|99|Iran||||1941-08-23|PES2UG22CS508_SARANG
+33593|144|177|33|373|2010-01-06|0|0|Completed|144|Thailand||||1954-11-01|PES2UG22CS508_SARANG|177|Jordan||||1963-01-06|PES2UG22CS508_SARANG
+33594|198|137|33|813|2010-01-06|1|0|Completed|198|United Arab Emirates||||1972-03-17|PES2UG22CS508_SARANG|137|Malaysia||||1953-04-16|PES2UG22CS508_SARANG
+33595|184|35|33|1149|2010-01-06|2|3|Completed|184|Yemen||||1966-04-02|PES2UG22CS508_SARANG|35|Japan||||1917-05-07|PES2UG22CS508_SARANG
+81565|519|469|214|3015|2010-01-06|4|0|Completed|519|Bahrain||||1966-04-02|PES2UG22CS508_SARANG|469|Hong Kong||||1953-04-05|PES2UG22CS508_SARANG
+81566|492|488|182|2853|2010-01-06|1|0|Completed|492|Benin||||1959-11-08|PES2UG22CS508_SARANG|488|Libya||||1957-06-02|PES2UG22CS508_SARANG
+81567|366|455|214|3084|2010-01-06|0|0|Completed|366|China PR||||1913-02-04|PES2UG22CS508_SARANG|455|Syria||||1949-11-20|PES2UG22CS508_SARANG
+81568|496|539|182|3302|2010-01-06|2|0|Completed|496|Gabon||||1960-04-14|PES2UG22CS508_SARANG|539|Mozambique||||1975-06-25|PES2UG22CS508_SARANG
+81569|417|520|214|2553|2010-01-06|1|2|Completed|417|Indonesia||||1934-05-13|PES2UG22CS508_SARANG|520|Oman||||1966-04-03|PES2UG22CS508_SARANG
+81570|510|385|214|2610|2010-01-06|2|2|Completed|510|Kuwait||||1963-01-06|PES2UG22CS508_SARANG|385|Australia||||1922-06-17|PES2UG22CS508_SARANG
+81571|430|449|214|3467|2010-01-06|1|1|Completed|430|Lebanon||||1940-04-27|PES2UG22CS508_SARANG|449|Vietnam||||1949-01-16|PES2UG22CS508_SARANG
+81572|470|433|214|2566|2010-01-06|1|3|Completed|470|Singapore||||1953-04-11|PES2UG22CS508_SARANG|433|Iran||||1941-08-23|PES2UG22CS508_SARANG
+81573|478|511|214|2580|2010-01-06|0|0|Completed|478|Thailand||||1954-11-01|PES2UG22CS508_SARANG|511|Jordan||||1963-01-06|PES2UG22CS508_SARANG
+81574|532|471|214|3020|2010-01-06|1|0|Completed|532|United Arab Emirates||||1972-03-17|PES2UG22CS508_SARANG|471|Malaysia||||1953-04-16|PES2UG22CS508_SARANG
+81575|518|369|214|3356|2010-01-06|2|3|Completed|518|Yemen||||1966-04-02|PES2UG22CS508_SARANG|369|Japan||||1917-05-07|PES2UG22CS508_SARANG
+129545|853|803|395|5222|2010-01-06|4|0|Completed|853|Bahrain||||1966-04-02|PES2UG22CS508_SARANG|803|Hong Kong||||1953-04-05|PES2UG22CS508_SARANG
+129546|826|822|363|5060|2010-01-06|1|0|Completed|826|Benin||||1959-11-08|PES2UG22CS508_SARANG|822|Libya||||1957-06-02|PES2UG22CS508_SARANG
+129547|700|789|395|5291|2010-01-06|0|0|Completed|700|China PR||||1913-02-04|PES2UG22CS508_SARANG|789|Syria||||1949-11-20|PES2UG22CS508_SARANG
+129548|830|873|363|5509|2010-01-06|2|0|Completed|830|Gabon||||1960-04-14|PES2UG22CS508_SARANG|873|Mozambique||||1975-06-25|PES2UG22CS508_SARANG
+129549|751|854|395|4760|2010-01-06|1|2|Completed|751|Indonesia||||1934-05-13|PES2UG22CS508_SARANG|854|Oman||||1966-04-03|PES2UG22CS508_SARANG
+129550|844|719|395|4817|2010-01-06|2|2|Completed|844|Kuwait||||1963-01-06|PES2UG22CS508_SARANG|719|Australia||||1922-06-17|PES2UG22CS508_SARANG
+129551|764|783|395|5674|2010-01-06|1|1|Completed|764|Lebanon||||1940-04-27|PES2UG22CS508_SARANG|783|Vietnam||||1949-01-16|PES2UG22CS508_SARANG
+129552|804|767|395|4773|2010-01-06|1|3|Completed|804|Singapore||||1953-04-11|PES2UG22CS508_SARANG|767|Iran||||1941-08-23|PES2UG22CS508_SARANG
+129553|812|845|395|4787|2010-01-06|0|0|Completed|812|Thailand||||1954-11-01|PES2UG22CS508_SARANG|845|Jordan||||1963-01-06|PES2UG22CS508_SARANG
+129554|866|805|395|5227|2010-01-06|1|0|Completed|866|United Arab Emirates||||1972-03-17|PES2UG22CS508_SARANG|805|Malaysia||||1953-04-16|PES2UG22CS508_SARANG
+129555|852|703|395|5563|2010-01-06|2|3|Completed|852|Yemen||||1966-04-02|PES2UG22CS508_SARANG|703|Japan||||1917-05-07|PES2UG22CS508_SARANG
+177525|1187|1137|576|7429|2010-01-06|4|0|Completed|1187|Bahrain||||1966-04-02|PES2UG22CS508_SARANG|1137|Hong Kong||||1953-04-05|PES2UG22CS508_SARANG
+177526|1160|1156|544|7267|2010-01-06|1|0|Completed|1160|Benin||||1959-11-08|PES2UG22CS508_SARANG|1156|Libya||||1957-06-02|PES2UG22CS508_SARANG
+177527|1034|1123|576|7498|2010-01-06|0|0|Completed|1034|China PR||||1913-02-04|PES2UG22CS508_SARANG|1123|Syria||||1949-11-20|PES2UG22CS508_SARANG
+177528|1164|1207|544|7716|2010-01-06|2|0|Completed|1164|Gabon||||1960-04-14|PES2UG22CS508_SARANG|1207|Mozambique||||1975-06-25|PES2UG22CS508_SARANG
+177529|1085|1188|576|6967|2010-01-06|1|2|Completed|1085|Indonesia||||1934-05-13|PES2UG22CS508_SARANG|1188|Oman||||1966-04-03|PES2UG22CS508_SARANG
+177530|1178|1053|576|7024|2010-01-06|2|2|Completed|1178|Kuwait||||1963-01-06|PES2UG22CS508_SARANG|1053|Australia||||1922-06-17|PES2UG22CS508_SARANG
+177531|1098|1117|576|7881|2010-01-06|1|1|Completed|1098|Lebanon||||1940-04-27|PES2UG22CS508_SARANG|1117|Vietnam||||1949-01-16|PES2UG22CS508_SARANG
+177532|1138|1101|576|6980|2010-01-06|1|3|Completed|1138|Singapore||||1953-04-11|PES2UG22CS508_SARANG|1101|Iran||||1941-08-23|PES2UG22CS508_SARANG
+177533|1146|1179|576|6994|2010-01-06|0|0|Completed|1146|Thailand||||1954-11-01|PES2UG22CS508_SARANG|1179|Jordan||||1963-01-06|PES2UG22CS508_SARANG
+177534|1200|1139|576|7434|2010-01-06|1|0|Completed|1200|United Arab Emirates||||1972-03-17|PES2UG22CS508_SARANG|1139|Malaysia||||1953-04-16|PES2UG22CS508_SARANG
+177535|1186|1037|576|7770|2010-01-06|2|3|Completed|1186|Yemen||||1966-04-02|PES2UG22CS508_SARANG|1037|Japan||||1917-05-07|PES2UG22CS508_SARANG
+225505|1521|1471|757|9636|2010-01-06|4|0|Completed|1521|Bahrain||||1966-04-02|PES2UG22CS508_SARANG|1471|Hong Kong||||1953-04-05|PES2UG22CS508_SARANG
+225506|1494|1490|725|9474|2010-01-06|1|0|Completed|1494|Benin||||1959-11-08|PES2UG22CS508_SARANG|1490|Libya||||1957-06-02|PES2UG22CS508_SARANG
+225507|1368|1457|757|9705|2010-01-06|0|0|Completed|1368|China PR||||1913-02-04|PES2UG22CS508_SARANG|1457|Syria||||1949-11-20|PES2UG22CS508_SARANG
+225508|1498|1541|725|9923|2010-01-06|2|0|Completed|1498|Gabon||||1960-04-14|PES2UG22CS508_SARANG|1541|Mozambique||||1975-06-25|PES2UG22CS508_SARANG
+225509|1419|1522|757|9174|2010-01-06|1|2|Completed|1419|Indonesia||||1934-05-13|PES2UG22CS508_SARANG|1522|Oman||||1966-04-03|PES2UG22CS508_SARANG
+225510|1512|1387|757|9231|2010-01-06|2|2|Completed|1512|Kuwait||||1963-01-06|PES2UG22CS508_SARANG|1387|Australia||||1922-06-17|PES2UG22CS508_SARANG
+225511|1432|1451|757|10088|2010-01-06|1|1|Completed|1432|Lebanon||||1940-04-27|PES2UG22CS508_SARANG|1451|Vietnam||||1949-01-16|PES2UG22CS508_SARANG
+225512|1472|1435|757|9187|2010-01-06|1|3|Completed|1472|Singapore||||1953-04-11|PES2UG22CS508_SARANG|1435|Iran||||1941-08-23|PES2UG22CS508_SARANG
+
+
+✅ Query: -- 3-table join with specific columns (more efficient)
+
+SELECT 
+    m.match_date,
+    ht.team_name AS home_team,
+    at.team_name AS away_team,
+    m.home_score,
+    m.away_score,
+    t.tournament_name
+FROM MATCHES m
+JOIN TEAMS ht ON m.home_team_id = ht.team_id
+JOIN TEAMS at ON m.away_team_id = at.team_id
+JOIN TOURNAMENTS t ON m.tournament_id = t.tournament_id
+WHERE m.home_score > 3 OR m.away_score > 3
+LIMIT 100
+Execution Time: 20.17 ms
+Output:
+1873-03-08|England|Scotland|4|2|Friendly
+1876-03-25|Scotland|Wales|4|0|Friendly
+1878-03-02|Scotland|England|7|2|Friendly
+1878-03-23|Scotland|Wales|9|0|Friendly
+1879-04-05|England|Scotland|5|4|Friendly
+1880-03-13|Scotland|England|5|4|Friendly
+1880-03-27|Scotland|Wales|5|1|Friendly
+1881-03-12|England|Scotland|1|6|Friendly
+1881-03-14|Wales|Scotland|1|5|Friendly
+1882-02-18|Northern Ireland|England|0|13|Friendly
+1882-02-25|Wales|Northern Ireland|7|1|Friendly
+1882-03-11|Scotland|England|5|1|Friendly
+1882-03-13|Wales|England|5|3|Friendly
+1882-03-25|Scotland|Wales|5|0|Friendly
+1883-02-03|England|Wales|5|0|Friendly
+1883-02-24|England|Northern Ireland|7|0|Friendly
+1884-01-26|Northern Ireland|Scotland|0|5|British Home Championship
+1884-02-09|Wales|Northern Ireland|6|0|British Home Championship
+1884-02-23|Northern Ireland|England|1|8|British Home Championship
+1884-03-17|Wales|England|0|4|British Home Championship
+1884-03-29|Scotland|Wales|4|1|British Home Championship
+1885-02-28|England|Northern Ireland|4|0|British Home Championship
+1885-03-14|Scotland|Northern Ireland|8|2|British Home Championship
+1885-03-23|Wales|Scotland|1|8|British Home Championship
+1885-04-11|Northern Ireland|Wales|2|8|British Home Championship
+1886-02-27|Wales|Northern Ireland|5|0|British Home Championship
+1886-03-13|Northern Ireland|England|1|6|British Home Championship
+1886-03-20|Northern Ireland|Scotland|2|7|British Home Championship
+1886-04-10|Scotland|Wales|4|1|British Home Championship
+1887-02-05|England|Northern Ireland|7|0|British Home Championship
+1887-02-19|Scotland|Northern Ireland|4|1|British Home Championship
+1887-02-26|England|Wales|4|0|British Home Championship
+1887-03-12|Northern Ireland|Wales|4|1|British Home Championship
+1888-02-04|England|Wales|5|1|British Home Championship
+1888-03-03|Wales|Northern Ireland|11|0|British Home Championship
+1888-03-10|Scotland|Wales|5|1|British Home Championship
+1888-03-17|Scotland|England|0|5|British Home Championship
+1888-03-24|Northern Ireland|Scotland|2|10|British Home Championship
+1888-04-07|Northern Ireland|England|1|5|British Home Championship
+1888-09-19|Scotland|Canada|4|0|Friendly
+1889-02-23|England|Wales|4|1|British Home Championship
+1889-03-02|England|Northern Ireland|6|1|British Home Championship
+1889-03-09|Scotland|Northern Ireland|7|0|British Home Championship
+1890-02-08|Wales|Northern Ireland|5|2|British Home Championship
+1890-03-15|Northern Ireland|England|1|9|British Home Championship
+1890-03-22|Scotland|Wales|5|0|British Home Championship
+1890-03-29|Northern Ireland|Scotland|1|4|British Home Championship
+1891-02-07|Northern Ireland|Wales|7|2|British Home Championship
+1891-03-07|England|Wales|4|1|British Home Championship
+1891-03-07|England|Northern Ireland|6|1|British Home Championship
+1891-03-21|Wales|Scotland|3|4|British Home Championship
+1892-03-26|Scotland|Wales|6|1|British Home Championship
+1892-04-02|Scotland|England|1|4|British Home Championship
+1893-02-25|England|Northern Ireland|6|1|British Home Championship
+1893-03-13|England|Wales|6|0|British Home Championship
+1893-03-18|Wales|Scotland|0|8|British Home Championship
+1893-03-25|Scotland|Northern Ireland|6|1|British Home Championship
+1893-04-01|England|Scotland|5|2|British Home Championship
+1894-02-24|Wales|Northern Ireland|4|1|British Home Championship
+1894-03-12|Wales|England|1|5|British Home Championship
+1894-03-24|Scotland|Wales|5|2|British Home Championship
+1895-03-09|England|Northern Ireland|9|0|British Home Championship
+1896-02-29|Wales|Northern Ireland|6|1|British Home Championship
+1896-03-16|Wales|England|1|9|British Home Championship
+1896-03-21|Scotland|Wales|4|0|British Home Championship
+1897-02-20|England|Northern Ireland|6|0|British Home Championship
+1897-03-06|Northern Ireland|Wales|4|3|British Home Championship
+1897-03-27|Scotland|Northern Ireland|5|1|British Home Championship
+1897-03-29|England|Wales|4|0|British Home Championship
+1898-03-19|Scotland|Wales|5|2|British Home Championship
+1899-02-18|England|Northern Ireland|13|2|British Home Championship
+1899-03-18|Wales|Scotland|0|6|British Home Championship
+1899-03-20|England|Wales|4|0|British Home Championship
+1899-03-25|Scotland|Northern Ireland|9|1|British Home Championship
+1900-02-03|Scotland|Wales|5|2|British Home Championship
+1900-04-07|Scotland|England|4|1|British Home Championship
+1901-02-23|Scotland|Northern Ireland|11|0|British Home Championship
+1901-03-18|England|Wales|6|0|British Home Championship
+1902-03-01|Northern Ireland|Scotland|1|5|British Home Championship
+1902-03-15|Scotland|Wales|5|1|British Home Championship
+1902-07-20|Uruguay|Argentina|0|6|Friendly
+1902-10-12|Austria|Hungary|5|0|Friendly
+1903-02-14|England|Northern Ireland|4|0|British Home Championship
+1903-10-11|Austria|Hungary|4|2|Friendly
+1904-10-09|Austria|Hungary|5|4|Friendly
+1905-03-18|Scotland|Northern Ireland|4|0|British Home Championship
+1905-04-17|Guernsey|Alderney|6|0|Muratti Vase
+1905-04-30|Belgium|Netherlands|1|4|Friendly
+1905-05-07|Belgium|France|7|0|Friendly
+1905-05-14|Netherlands|Belgium|4|0|Friendly
+1905-07-21|Guyana|Trinidad and Tobago|1|4|Friendly
+1906-02-17|Northern Ireland|England|0|5|British Home Championship
+1906-04-02|Wales|Northern Ireland|4|4|British Home Championship
+1906-04-22|France|Belgium|0|5|Friendly
+1906-04-29|Belgium|Netherlands|5|0|Friendly
+1906-10-07|Czechoslovakia|Hungary|4|4|Friendly
+1907-04-07|Hungary|Czechoslovakia|5|2|Friendly
+1907-10-06|Czechoslovakia|Hungary|5|3|Friendly
+1907-11-03|Hungary|Austria|4|1|Friendly
+1908-03-14|Northern Ireland|Scotland|0|5|British Home Championship
+
+
+✅ Query: -- Complex query for analysis
+
+SELECT 
+    ht.team_name AS home_team,
+    at.team_name AS away_team,
+    m.match_date,
+    m.home_score,
+    m.away_score,
+    t.tournament_name,
+    l.city,
+    l.country
+FROM MATCHES m
+JOIN TEAMS ht ON m.home_team_id = ht.team_id
+JOIN TEAMS at ON m.away_team_id = at.team_id
+JOIN TOURNAMENTS t ON m.tournament_id = t.tournament_id
+JOIN LOCATIONS l ON m.location_id = l.location_id
+WHERE m.match_date BETWEEN '2010-01-01' AND '2014-12-31'
+AND t.tournament_name = 'FIFA World Cup'
+AND (m.home_score > 2 OR m.away_score > 2)
+ORDER BY m.match_date
+Execution Time: 28.75 ms
+Output:
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+
+

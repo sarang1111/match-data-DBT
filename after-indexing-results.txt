@@ -1,0 +1,475 @@
+❌ Query: -- Enable EXPLAIN QUERY PLAN for SQLite
+.explain on
+
+-- Query that now uses index scan on match_date
+
+SELECT * FROM MATCHES WHERE match_date > '2010-01-01'
+Error: spawnSync C:\Windows\system32\cmd.exe ENOBUFS
+
+✅ Query: -- Query that now uses index scan on team_name
+
+SELECT * FROM TEAMS WHERE team_name LIKE 'Bra%'
+Execution Time: 27.27 ms
+Output:
+33|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+367|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+701|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+1035|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+1369|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+1703|Brazil||||1914-09-20|PES2UG22CS508_SARANG
+
+
+✅ Query: -- Query with ordering that now uses index
+
+SELECT * FROM MATCHES ORDER BY match_date DESC LIMIT 100
+Execution Time: 34.03 ms
+Output:
+287880|1814|1785|1086|11408|2025-01-05|2|3|Completed
+239900|1480|1451|905|9201|2025-01-05|2|3|Completed
+191920|1146|1117|724|6994|2025-01-05|2|3|Completed
+143940|812|783|543|4787|2025-01-05|2|3|Completed
+95960|478|449|362|2580|2025-01-05|2|3|Completed
+47980|144|115|181|373|2025-01-05|2|3|Completed
+287879|1856|1855|963|11438|2025-01-04|1|2|Completed
+239899|1522|1521|782|9231|2025-01-04|1|2|Completed
+191919|1188|1187|601|7024|2025-01-04|1|2|Completed
+143939|854|853|420|4817|2025-01-04|1|2|Completed
+95959|520|519|239|2610|2025-01-04|1|2|Completed
+47979|186|185|58|403|2025-01-04|1|2|Completed
+287878|1785|1814|1086|13241|2025-01-02|2|1|Completed
+239898|1451|1480|905|11034|2025-01-02|2|1|Completed
+191918|1117|1146|724|8827|2025-01-02|2|1|Completed
+143938|783|812|543|6620|2025-01-02|2|1|Completed
+95958|449|478|362|4413|2025-01-02|2|1|Completed
+47978|115|144|181|2206|2025-01-02|2|1|Completed
+287877|1846|1855|963|11438|2024-12-31|0|1|Completed
+287876|1856|1851|963|13242|2024-12-31|2|1|Completed
+239897|1512|1521|782|9231|2024-12-31|0|1|Completed
+239896|1522|1517|782|11035|2024-12-31|2|1|Completed
+191917|1178|1187|601|7024|2024-12-31|0|1|Completed
+191916|1188|1183|601|8828|2024-12-31|2|1|Completed
+143937|844|853|420|4817|2024-12-31|0|1|Completed
+143936|854|849|420|6621|2024-12-31|2|1|Completed
+95957|510|519|239|2610|2024-12-31|0|1|Completed
+95956|520|515|239|4414|2024-12-31|2|1|Completed
+47977|176|185|58|403|2024-12-31|0|1|Completed
+47976|186|181|58|2207|2024-12-31|2|1|Completed
+287875|1814|1701|1086|11408|2024-12-30|3|1|Completed
+239895|1480|1367|905|9201|2024-12-30|3|1|Completed
+191915|1146|1033|724|6994|2024-12-30|3|1|Completed
+143935|812|699|543|4787|2024-12-30|3|1|Completed
+95955|478|365|362|2580|2024-12-30|3|1|Completed
+47975|144|31|181|373|2024-12-30|3|1|Completed
+287874|1785|1806|1086|13241|2024-12-29|3|1|Completed
+239894|1451|1472|905|11034|2024-12-29|3|1|Completed
+191914|1117|1138|724|8827|2024-12-29|3|1|Completed
+143934|783|804|543|6620|2024-12-29|3|1|Completed
+95954|449|470|362|4413|2024-12-29|3|1|Completed
+47974|115|136|181|2206|2024-12-29|3|1|Completed
+287873|1855|1854|963|13242|2024-12-28|1|2|Completed
+287872|1836|1851|963|11438|2024-12-28|1|3|Completed
+239893|1521|1520|782|11035|2024-12-28|1|2|Completed
+239892|1502|1517|782|9231|2024-12-28|1|3|Completed
+191913|1187|1186|601|8828|2024-12-28|1|2|Completed
+191912|1168|1183|601|7024|2024-12-28|1|3|Completed
+143933|853|852|420|6621|2024-12-28|1|2|Completed
+143932|834|849|420|4817|2024-12-28|1|3|Completed
+95953|519|518|239|4414|2024-12-28|1|2|Completed
+95952|500|515|239|2610|2024-12-28|1|3|Completed
+47973|185|184|58|2207|2024-12-28|1|2|Completed
+47972|166|181|58|403|2024-12-28|1|3|Completed
+287871|1868|1856|963|13242|2024-12-27|1|1|Completed
+287870|1846|1862|963|11438|2024-12-27|1|1|Completed
+287869|1701|1814|1086|11125|2024-12-27|2|1|Completed
+239891|1534|1522|782|11035|2024-12-27|1|1|Completed
+239890|1512|1528|782|9231|2024-12-27|1|1|Completed
+239889|1367|1480|905|8918|2024-12-27|2|1|Completed
+191911|1200|1188|601|8828|2024-12-27|1|1|Completed
+191910|1178|1194|601|7024|2024-12-27|1|1|Completed
+191909|1033|1146|724|6711|2024-12-27|2|1|Completed
+143931|866|854|420|6621|2024-12-27|1|1|Completed
+143930|844|860|420|4817|2024-12-27|1|1|Completed
+143929|699|812|543|4504|2024-12-27|2|1|Completed
+95951|532|520|239|4414|2024-12-27|1|1|Completed
+95950|510|526|239|2610|2024-12-27|1|1|Completed
+95949|365|478|362|2297|2024-12-27|2|1|Completed
+47971|198|186|58|2207|2024-12-27|1|1|Completed
+47970|176|192|58|403|2024-12-27|1|1|Completed
+47969|31|144|181|90|2024-12-27|2|1|Completed
+287868|1806|1785|1086|11394|2024-12-26|0|2|Completed
+239888|1472|1451|905|9187|2024-12-26|0|2|Completed
+191908|1138|1117|724|6980|2024-12-26|0|2|Completed
+143928|804|783|543|4773|2024-12-26|0|2|Completed
+95948|470|449|362|2566|2024-12-26|0|2|Completed
+47968|136|115|181|359|2024-12-26|0|2|Completed
+287867|1855|1836|963|11438|2024-12-25|2|0|Completed
+287866|1854|1851|963|13242|2024-12-25|2|3|Completed
+239887|1521|1502|782|9231|2024-12-25|2|0|Completed
+239886|1520|1517|782|11035|2024-12-25|2|3|Completed
+191907|1187|1168|601|7024|2024-12-25|2|0|Completed
+191906|1186|1183|601|8828|2024-12-25|2|3|Completed
+143927|853|834|420|4817|2024-12-25|2|0|Completed
+143926|852|849|420|6621|2024-12-25|2|3|Completed
+95947|519|500|239|2610|2024-12-25|2|0|Completed
+95946|518|515|239|4414|2024-12-25|2|3|Completed
+47967|185|166|58|403|2024-12-25|2|0|Completed
+47966|184|181|58|2207|2024-12-25|2|3|Completed
+287865|1846|1868|963|11438|2024-12-24|2|1|Completed
+287864|1856|1862|963|13242|2024-12-24|2|1|Completed
+239885|1512|1534|782|9231|2024-12-24|2|1|Completed
+239884|1522|1528|782|11035|2024-12-24|2|1|Completed
+191905|1178|1200|601|7024|2024-12-24|2|1|Completed
+191904|1188|1194|601|8828|2024-12-24|2|1|Completed
+143925|844|866|420|4817|2024-12-24|2|1|Completed
+143924|854|860|420|6621|2024-12-24|2|1|Completed
+95945|510|532|239|2610|2024-12-24|2|1|Completed
+95944|520|526|239|4414|2024-12-24|2|1|Completed
+
+
+✅ Query: -- 3-table join that should now be faster
+
+SELECT 
+    m.match_date,
+    ht.team_name AS home_team,
+    at.team_name AS away_team,
+    m.home_score,
+    m.away_score,
+    t.tournament_name
+FROM MATCHES m
+JOIN TEAMS ht ON m.home_team_id = ht.team_id
+JOIN TEAMS at ON m.away_team_id = at.team_id
+JOIN TOURNAMENTS t ON m.tournament_id = t.tournament_id
+WHERE m.home_score > 3 OR m.away_score > 3
+LIMIT 100
+Execution Time: 20.19 ms
+Output:
+1873-03-08|England|Scotland|4|2|Friendly
+1876-03-25|Scotland|Wales|4|0|Friendly
+1878-03-02|Scotland|England|7|2|Friendly
+1878-03-23|Scotland|Wales|9|0|Friendly
+1879-04-05|England|Scotland|5|4|Friendly
+1880-03-13|Scotland|England|5|4|Friendly
+1880-03-27|Scotland|Wales|5|1|Friendly
+1881-03-12|England|Scotland|1|6|Friendly
+1881-03-14|Wales|Scotland|1|5|Friendly
+1882-02-18|Northern Ireland|England|0|13|Friendly
+1882-02-25|Wales|Northern Ireland|7|1|Friendly
+1882-03-11|Scotland|England|5|1|Friendly
+1882-03-13|Wales|England|5|3|Friendly
+1882-03-25|Scotland|Wales|5|0|Friendly
+1883-02-03|England|Wales|5|0|Friendly
+1883-02-24|England|Northern Ireland|7|0|Friendly
+1884-01-26|Northern Ireland|Scotland|0|5|British Home Championship
+1884-02-09|Wales|Northern Ireland|6|0|British Home Championship
+1884-02-23|Northern Ireland|England|1|8|British Home Championship
+1884-03-17|Wales|England|0|4|British Home Championship
+1884-03-29|Scotland|Wales|4|1|British Home Championship
+1885-02-28|England|Northern Ireland|4|0|British Home Championship
+1885-03-14|Scotland|Northern Ireland|8|2|British Home Championship
+1885-03-23|Wales|Scotland|1|8|British Home Championship
+1885-04-11|Northern Ireland|Wales|2|8|British Home Championship
+1886-02-27|Wales|Northern Ireland|5|0|British Home Championship
+1886-03-13|Northern Ireland|England|1|6|British Home Championship
+1886-03-20|Northern Ireland|Scotland|2|7|British Home Championship
+1886-04-10|Scotland|Wales|4|1|British Home Championship
+1887-02-05|England|Northern Ireland|7|0|British Home Championship
+1887-02-19|Scotland|Northern Ireland|4|1|British Home Championship
+1887-02-26|England|Wales|4|0|British Home Championship
+1887-03-12|Northern Ireland|Wales|4|1|British Home Championship
+1888-02-04|England|Wales|5|1|British Home Championship
+1888-03-03|Wales|Northern Ireland|11|0|British Home Championship
+1888-03-10|Scotland|Wales|5|1|British Home Championship
+1888-03-17|Scotland|England|0|5|British Home Championship
+1888-03-24|Northern Ireland|Scotland|2|10|British Home Championship
+1888-04-07|Northern Ireland|England|1|5|British Home Championship
+1888-09-19|Scotland|Canada|4|0|Friendly
+1889-02-23|England|Wales|4|1|British Home Championship
+1889-03-02|England|Northern Ireland|6|1|British Home Championship
+1889-03-09|Scotland|Northern Ireland|7|0|British Home Championship
+1890-02-08|Wales|Northern Ireland|5|2|British Home Championship
+1890-03-15|Northern Ireland|England|1|9|British Home Championship
+1890-03-22|Scotland|Wales|5|0|British Home Championship
+1890-03-29|Northern Ireland|Scotland|1|4|British Home Championship
+1891-02-07|Northern Ireland|Wales|7|2|British Home Championship
+1891-03-07|England|Wales|4|1|British Home Championship
+1891-03-07|England|Northern Ireland|6|1|British Home Championship
+1891-03-21|Wales|Scotland|3|4|British Home Championship
+1892-03-26|Scotland|Wales|6|1|British Home Championship
+1892-04-02|Scotland|England|1|4|British Home Championship
+1893-02-25|England|Northern Ireland|6|1|British Home Championship
+1893-03-13|England|Wales|6|0|British Home Championship
+1893-03-18|Wales|Scotland|0|8|British Home Championship
+1893-03-25|Scotland|Northern Ireland|6|1|British Home Championship
+1893-04-01|England|Scotland|5|2|British Home Championship
+1894-02-24|Wales|Northern Ireland|4|1|British Home Championship
+1894-03-12|Wales|England|1|5|British Home Championship
+1894-03-24|Scotland|Wales|5|2|British Home Championship
+1895-03-09|England|Northern Ireland|9|0|British Home Championship
+1896-02-29|Wales|Northern Ireland|6|1|British Home Championship
+1896-03-16|Wales|England|1|9|British Home Championship
+1896-03-21|Scotland|Wales|4|0|British Home Championship
+1897-02-20|England|Northern Ireland|6|0|British Home Championship
+1897-03-06|Northern Ireland|Wales|4|3|British Home Championship
+1897-03-27|Scotland|Northern Ireland|5|1|British Home Championship
+1897-03-29|England|Wales|4|0|British Home Championship
+1898-03-19|Scotland|Wales|5|2|British Home Championship
+1899-02-18|England|Northern Ireland|13|2|British Home Championship
+1899-03-18|Wales|Scotland|0|6|British Home Championship
+1899-03-20|England|Wales|4|0|British Home Championship
+1899-03-25|Scotland|Northern Ireland|9|1|British Home Championship
+1900-02-03|Scotland|Wales|5|2|British Home Championship
+1900-04-07|Scotland|England|4|1|British Home Championship
+1901-02-23|Scotland|Northern Ireland|11|0|British Home Championship
+1901-03-18|England|Wales|6|0|British Home Championship
+1902-03-01|Northern Ireland|Scotland|1|5|British Home Championship
+1902-03-15|Scotland|Wales|5|1|British Home Championship
+1902-07-20|Uruguay|Argentina|0|6|Friendly
+1902-10-12|Austria|Hungary|5|0|Friendly
+1903-02-14|England|Northern Ireland|4|0|British Home Championship
+1903-10-11|Austria|Hungary|4|2|Friendly
+1904-10-09|Austria|Hungary|5|4|Friendly
+1905-03-18|Scotland|Northern Ireland|4|0|British Home Championship
+1905-04-17|Guernsey|Alderney|6|0|Muratti Vase
+1905-04-30|Belgium|Netherlands|1|4|Friendly
+1905-05-07|Belgium|France|7|0|Friendly
+1905-05-14|Netherlands|Belgium|4|0|Friendly
+1905-07-21|Guyana|Trinidad and Tobago|1|4|Friendly
+1906-02-17|Northern Ireland|England|0|5|British Home Championship
+1906-04-02|Wales|Northern Ireland|4|4|British Home Championship
+1906-04-22|France|Belgium|0|5|Friendly
+1906-04-29|Belgium|Netherlands|5|0|Friendly
+1906-10-07|Czechoslovakia|Hungary|4|4|Friendly
+1907-04-07|Hungary|Czechoslovakia|5|2|Friendly
+1907-10-06|Czechoslovakia|Hungary|5|3|Friendly
+1907-11-03|Hungary|Austria|4|1|Friendly
+1908-03-14|Northern Ireland|Scotland|0|5|British Home Championship
+
+
+✅ Query: -- Complex query for analysis (should be faster with indexes)
+
+SELECT 
+    ht.team_name AS home_team,
+    at.team_name AS away_team,
+    m.match_date,
+    m.home_score,
+    m.away_score,
+    t.tournament_name,
+    l.city,
+    l.country
+FROM MATCHES m
+JOIN TEAMS ht ON m.home_team_id = ht.team_id
+JOIN TEAMS at ON m.away_team_id = at.team_id
+JOIN TOURNAMENTS t ON m.tournament_id = t.tournament_id
+JOIN LOCATIONS l ON m.location_id = l.location_id
+WHERE m.match_date BETWEEN '2010-01-01' AND '2014-12-31'
+AND t.tournament_name = 'FIFA World Cup'
+AND (m.home_score > 2 OR m.away_score > 2)
+ORDER BY m.match_date
+Execution Time: 27.69 ms
+Output:
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+Germany|Australia|2010-06-13|4|0|FIFA World Cup|Durban|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+South Africa|Uruguay|2010-06-16|0|3|FIFA World Cup|Pretoria|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Argentina|South Korea|2010-06-17|4|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Brazil|Ivory Coast|2010-06-20|3|1|FIFA World Cup|Johannesburg|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Portugal|North Korea|2010-06-21|7|0|FIFA World Cup|Cape Town|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+Denmark|Japan|2010-06-24|1|3|FIFA World Cup|Rustenburg|South Africa
+Slovakia|Italy|2010-06-24|3|2|FIFA World Cup|Johannesburg|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+North Korea|Ivory Coast|2010-06-25|0|3|FIFA World Cup|Nelspruit|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Argentina|Mexico|2010-06-27|3|1|FIFA World Cup|Johannesburg|South Africa
+Germany|England|2010-06-27|4|1|FIFA World Cup|Bloemfontein|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Brazil|Chile|2010-06-28|3|0|FIFA World Cup|Johannesburg|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Argentina|Germany|2010-07-03|0|4|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Netherlands|2010-07-06|2|3|FIFA World Cup|Cape Town|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Uruguay|Germany|2010-07-10|2|3|FIFA World Cup|Port Elizabeth|South Africa
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Brazil|Croatia|2014-06-12|3|1|FIFA World Cup|São Paulo|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Chile|Australia|2014-06-13|3|1|FIFA World Cup|Cuiabá|Brazil
+Spain|Netherlands|2014-06-13|1|5|FIFA World Cup|Salvador|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+Colombia|Greece|2014-06-14|3|0|FIFA World Cup|Belo Horizonte|Brazil
+Uruguay|Costa Rica|2014-06-14|1|3|FIFA World Cup|Fortaleza|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+France|Honduras|2014-06-15|3|0|FIFA World Cup|Porto Alegre|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Germany|Portugal|2014-06-16|4|0|FIFA World Cup|Salvador|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Australia|Netherlands|2014-06-18|2|3|FIFA World Cup|Curitiba|Brazil
+Cameroon|Croatia|2014-06-18|0|4|FIFA World Cup|Manaus|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+Switzerland|France|2014-06-20|2|5|FIFA World Cup|Salvador|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+South Korea|Algeria|2014-06-22|2|4|FIFA World Cup|Porto Alegre|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Australia|Spain|2014-06-23|0|3|FIFA World Cup|Curitiba|Brazil
+Brazil|Cameroon|2014-06-23|4|1|FIFA World Cup|Brasília|Brazil
+Croatia|Mexico|2014-06-23|1|3|FIFA World Cup|Recife|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Japan|Colombia|2014-06-24|1|4|FIFA World Cup|Cuiabá|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Bosnia and Herzegovina|Iran|2014-06-25|3|1|FIFA World Cup|Salvador|Brazil
+Honduras|Switzerland|2014-06-25|0|3|FIFA World Cup|Manaus|Brazil
+Nigeria|Argentina|2014-06-25|2|3|FIFA World Cup|Porto Alegre|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Germany|2014-07-08|1|7|FIFA World Cup|Belo Horizonte|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+Brazil|Netherlands|2014-07-12|0|3|FIFA World Cup|Brasília|Brazil
+
+
